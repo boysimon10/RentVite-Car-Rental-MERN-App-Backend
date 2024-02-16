@@ -1,19 +1,23 @@
-const router = require("express").Router();
-const authController = require("../controllers/auth.controller");
-const userController = require("../controllers/user.controller");
+const express = require('express');
+const authMiddleware = require('../middleware/auth.middleware');
+const authController = require('../controllers/auth.controller');
+const userController = require('../controllers/user.controller');
 const uploadProfile = require('../middleware/uploadProfile.middleware.js');
+const router = express.Router();
 
-//authentification
+
+// Authentification
 router.post("/register", authController.signUp);
+router.post("/login", authController.signIn);
+router.get("/logout", authController.logOut);
 
-//User Database
-router.get("/", userController.getAllUsers);
-router.get("/:id", userController.userInfo);
-router.put("/:id", userController.updateUser);
-router.delete("/:id", userController.deleteUser);
+// User Database
+router.get("/", authMiddleware, userController.getAllUsers); 
+router.get("/:id", authMiddleware, userController.userInfo); 
+router.put("/:id", authMiddleware, userController.updateUser); 
+router.delete("/:id", authMiddleware, userController.deleteUser); 
 
-//upload
-router.put('/:id/profile-picture', uploadProfile.single('profilePicture'), userController.updateProfilePicture);
-
+// Upload
+router.put('/:id/profile-picture', authMiddleware, uploadProfile.single('profilePicture'), userController.updateProfilePicture); 
 
 module.exports = router;

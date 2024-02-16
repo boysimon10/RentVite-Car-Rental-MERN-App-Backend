@@ -1,4 +1,4 @@
-const User = require("../Models/user.model");
+const User = require("../models/user.model");
 const ObjectID = require("mongoose").Types.ObjectId;
 const fs = require('fs');
 const path = require('path');
