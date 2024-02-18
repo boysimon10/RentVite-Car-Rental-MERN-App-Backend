@@ -1,12 +1,11 @@
-const User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
-
+const User = require('../models/user.model');
 
 const authMiddleware = async (req, res, next) => {
-    const token = req.header('Authorization');
+    const token = req.cookies.token;
 
     if (!token) {
-        return res.status(401).json({ error: 'Accès non autorisé' });
+        return res.status(401).json({ error: 'Accès non autorisé - Token non trouvé' });
     }
 
     try {
@@ -14,13 +13,14 @@ const authMiddleware = async (req, res, next) => {
         const user = await User.findById(decoded.id);
 
         if (!user) {
-            throw new Error();
+            throw new Error('Utilisateur non trouvé');
         }
 
         req.user = user;
         next();
     } catch (err) {
-        res.status(401).json({ error: 'Accès non autorisé' });
+        console.error('Erreur dans le middleware d\'authentification :', err);
+        res.status(401).json({ error: 'Accès non autorisé - Token invalide' });
     }
 };
 

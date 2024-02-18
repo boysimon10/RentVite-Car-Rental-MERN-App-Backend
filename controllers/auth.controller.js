@@ -24,28 +24,32 @@ exports.signUp = (req, res) => {
         });
 };
 
-exports.signIn = (req, res) => {
+exports.signIn = async (req, res) => {
     const { email, password } = req.body;
 
-    User.findOne({ email })
-        .then(user => {
-            if (!user) {
-                return res.status(400).json({ error: 'Utilisateur non trouvé' });
-            }
-            return user.isValidPassword(password).then(isMatch => {
-                if (!isMatch) {
-                    return res.status(400).json({ error: 'Mot de passe incorrect' });
-                }
-                const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-                    expiresIn: process.env.JWT_EXPIRE
-                });
-                res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'strict' });
-                res.status(200).json({ token });
-            });
-        })
-        .catch(err => {
-            res.status(500).json({ error: err.toString() });
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(400).json({ error: 'Utilisateur non trouvé' });
+        }
+
+        const isMatch = await user.isValidPassword(password);
+
+        if (!isMatch) {
+            return res.status(400).json({ error: 'Mot de passe incorrect' });
+        }
+
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+            expiresIn: process.env.JWT_EXPIRE
         });
+
+        res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'strict' });
+        res.status(200).json({ token });
+    } catch (err) {
+        console.error('Erreur lors de la connexion :', err);
+        res.status(500).json({ error: err.toString() });
+    }
 };
 
 exports.logOut = (req, res) => {

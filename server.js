@@ -2,6 +2,7 @@ const express = require('express');
 require('./config/db');
 const app = express();
 const userRoutes = require('./routes/user.routes');
+const carRoutes = require('./routes/car.routes')
 const cookieParser = require('cookie-parser');
 
 const dotenv = require('dotenv');
@@ -15,7 +16,7 @@ app.use(cookieParser());
 
 //routes
 app.use('/user', userRoutes);
-
+app.use('/car', carRoutes);
 //server
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);

@@ -1,25 +1,93 @@
 const mongoose = require('mongoose');
 
 const carsSchema = new mongoose.Schema({
-  marque: { type: String, required: true },
-  modele: { type: String, required: true },
-  annee: { type: Number, required: true },
-  typeCarburant: { type: String, required: true },
-  kilometrage: { type: Number, required: true },
-  transmission: { type: String, required: true },
-  capaciteAccueil: { type: Number, required: true },
+  marque: { 
+    type: String, 
+    required: true 
+  },
+  modele: { 
+    type: String,
+    required: true 
+  },
+  annee: { 
+    type: Number
+  },
+  typeCarburant: { 
+    type: String, 
+    required: true 
+  },
+  kilometrage: { 
+    type: Number 
+  },
+  transmission: { 
+    type: String, 
+    enum: ['Automatique', 'Manuelle'],
+    required: true 
+  },
+  capaciteAccueil: { 
+    type: Number, 
+    required: true 
+  },
   options: [String],
   photos: [String],
   tarifs: {
-    jour: { type: Number, required: true },
-    semaine: { type: Number, required: true },
-    mois: { type: Number, required: true }
+    jour: { 
+      type: Number, 
+      required: true 
+    },
+    semaine: { 
+      type: Number, 
+      required: true 
+    },
+    mois: { 
+      type: Number,
+      required: true 
+    }
   },
-  politiqueCarburant: { type: String, required: true },
-  lieuPriseEnCharge: { type: String, required: true },
-  lieuRestitution: { type: String, required: true },
-  proprietaire: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  reservations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reservation' }]
+  politiqueCarburant: { 
+    type: String,
+    enum: ['Plein-à-plein', 'Plein-à-vide', 'Plein-à-plein partiel', 'Prépaiement partiel', 'Autres'], 
+    required: true 
+  },
+  lieuPriseEnCharge: { 
+    type: String, 
+    required: true 
+  },
+  lieuRestitution: { 
+    type: String, 
+    required: true 
+  },
+  proprietaire: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User', 
+    required: true 
+  },
+  reservations: [{ 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Reservation' 
+  }],
+  avis: [{
+    _id: mongoose.Schema.Types.ObjectId,
+    contenu: { 
+      type: String, 
+      required: true 
+    },
+    note: { 
+      type: Number, 
+      min: 1, 
+      max: 5, 
+      required: true 
+    },
+    date: { 
+      type: Date, 
+      default: Date.now 
+    },
+    userCommentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    }
+  }]
 });
 
-module.exports = mongoose.model('Cars', carsSchema);
+module.exports = mongoose.model('Car', carsSchema);
