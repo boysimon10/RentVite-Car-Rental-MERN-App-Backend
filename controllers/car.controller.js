@@ -3,6 +3,10 @@ const ObjectID = require('mongoose').Types.ObjectId;
 
 exports.addCar = (req, res) => {
     const userId = req.user.id;
+    const userRole = req.user.role;
+    if (userRole !== 'business') {
+        return res.status(403).json({ error: 'Only users with a business role can add a car' });
+    }
     const {
         marque,
         modele,
@@ -17,7 +21,8 @@ exports.addCar = (req, res) => {
         lieuPriseEnCharge,
         lieuRestitution,
     } = req.body;
-
+    const photos = req.files.map(file => file.path);
+    
     const newCar = new Car({
         marque,
         modele,
@@ -27,6 +32,7 @@ exports.addCar = (req, res) => {
         transmission,
         capaciteAccueil,
         options,
+        photos,
         tarifs,
         politiqueCarburant,
         lieuPriseEnCharge,
