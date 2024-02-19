@@ -11,7 +11,7 @@ router.put('/:id', carController.updateCar);
 router.delete('/:id', carController.deleteCar);
 
 // Routes pour les commentaires sur les voitures
-router.post('/:id/comment', carController.commentCar);
+router.post('/:id/comment',authMiddleware, carController.commentCar);
 router.put('/:id/comment/edit', carController.editCarComment);
 router.delete('/:id/comment/delete', carController.deleteCarComment);
 

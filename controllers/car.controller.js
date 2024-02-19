@@ -78,10 +78,10 @@ exports.deleteCar = (req, res) => {
 
 
 exports.commentCar = (req, res) => {
+    const userId = req.user.id;
     if (!ObjectID.isValid(req.params.id)) {
         return res.status(400).send("ID de voiture inconnu : " + req.params.id);
     }
-
     Car.findByIdAndUpdate(
       req.params.id,
       {
@@ -90,6 +90,7 @@ exports.commentCar = (req, res) => {
                 contenu: req.body.contenu,
                 note: req.body.note,
                 date: new Date().getTime(),
+                userCommentId: userId
           },
         },
       },

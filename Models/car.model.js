@@ -58,7 +58,7 @@ const carsSchema = new mongoose.Schema({
     required: true 
   },
   proprietaire: { 
-    type: mongoose.Schema.Types.ObjectId, 
+    type: String, 
     ref: 'User', 
     required: true 
   },
@@ -67,7 +67,6 @@ const carsSchema = new mongoose.Schema({
     ref: 'Reservation' 
   }],
   avis: [{
-    _id: mongoose.Schema.Types.ObjectId,
     contenu: { 
       type: String, 
       required: true 
