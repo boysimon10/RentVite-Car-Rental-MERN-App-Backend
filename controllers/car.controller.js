@@ -83,7 +83,7 @@ exports.deleteCar = (req, res) => {
 };
 
 
-exports.commentCar = (req, res) => {
+/* exports.commentCar = (req, res) => {
     const userId = req.user.id;
     if (!ObjectID.isValid(req.params.id)) {
         return res.status(400).send("ID de voiture inconnu : " + req.params.id);
@@ -164,4 +164,4 @@ exports.editCarComment = (req, res) => {
     } catch (err) {
       return res.status(400).send(err);
     }
-  };
+  }; */

@@ -58,15 +58,16 @@ const carsSchema = new mongoose.Schema({
     required: true 
   },
   proprietaire: { 
-    type: String, 
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'User', 
     required: true 
   },
   reservations: [{ 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Reservation' 
-  }],
-  avis: [{
+  }]
+  //va etre deplacé dans les reservations seuls les personnes ayant deja eu acces à la voiture peut donner leurs avis sur cette reservation.
+  /*avis: [{
     contenu: { 
       type: String, 
       required: true 
@@ -86,7 +87,7 @@ const carsSchema = new mongoose.Schema({
       ref: 'User',
       required: true
     }
-  }]
+  }]*/
 });
 
 module.exports = mongoose.model('Car', carsSchema);
