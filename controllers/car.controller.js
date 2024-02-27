@@ -20,6 +20,7 @@ exports.addCar = (req, res) => {
         politiqueCarburant,
         lieuPriseEnCharge,
         lieuRestitution,
+        description
     } = req.body;
     const photos = req.files.map(file => file.path);
     
@@ -37,7 +38,8 @@ exports.addCar = (req, res) => {
         politiqueCarburant,
         lieuPriseEnCharge,
         lieuRestitution,
-        proprietaire: userId
+        proprietaire: userId,
+        description
     });
     newCar.save()
         .then(() => {
@@ -68,7 +70,7 @@ exports.updateCar = (req, res) => {
     Car.findByIdAndUpdate(req.params.id, req.body, { new: true })
         .then(car => {
             if (!car) return res.status(404).json({ message: 'Car not found' });
-            res.status(200).json(car);
+            res.status(200).json(car); 
         })
         .catch(err => res.status(400).json({ message: err.message }));
 };

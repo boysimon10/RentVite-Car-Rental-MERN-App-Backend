@@ -65,6 +65,10 @@ const carsSchema = new mongoose.Schema({
   reservations: [{ 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Reservation' 
+  }],
+  description: [{
+    type: String,
+    required: true
   }]
   //va etre deplacé dans les reservations seuls les personnes ayant deja eu acces à la voiture peut donner leurs avis sur cette reservation.
   /*avis: [{
