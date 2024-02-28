@@ -5,11 +5,26 @@ const userRoutes = require('./routes/user.routes');
 const carRoutes = require('./routes/car.routes');
 const bookingRoutes = require ('./routes/booking.routes')
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 const dotenv = require('dotenv');
 dotenv.config({ path: './config/.env' });
 
+
+
 const port = process.env.PORT || 3000;
+
+
+const corsOptions = {
+    origin: process.env.CLIENT_URL,
+    credentials: true,
+    'allowedHeaders': ['sessionId', 'Content-Type'],
+    'exposedHeaders': ['sessionId'],
+    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    'preflightContinue': false
+}
+app.use(cors(corsOptions));
+
 
 // Middleware pour analyser les données JSON dans les requêtes
 app.use(express.json());
