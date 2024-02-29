@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 const dotenv = require('dotenv');
+const authMiddleware = require('./middleware/auth.middleware');
 dotenv.config({ path: './config/.env' });
 
 
@@ -28,12 +29,18 @@ app.use(cors(corsOptions));
 
 // Middleware pour analyser les données JSON dans les requêtes
 app.use(express.json());
+
 app.use(cookieParser());
 
 //routes
 app.use('/user', userRoutes);
 app.use('/car', carRoutes);
 app.use('/booking', bookingRoutes);
+
+app.get('/authenticated', authMiddleware, (req, res) => {
+    res.json({ authenticated: true });
+  });
+  
 //server
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
