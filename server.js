@@ -39,7 +39,7 @@ app.use('/booking', bookingRoutes);
 
 app.get('/authenticated', authMiddleware, (req, res) => {
     res.json({ authenticated: true });
-  });
+});
   
 //server
 app.listen(port, () => {
