@@ -38,9 +38,9 @@ app.use('/car', carRoutes);
 app.use('/booking', bookingRoutes);
 
 app.get('/authenticated', authMiddleware, (req, res) => {
-    res.json({ authenticated: true });
+    res.json({ userId: req.user._id });
 });
-  
+
 //server
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
