@@ -31,18 +31,8 @@ const carsSchema = new mongoose.Schema({
   options: [String],
   photos: [String],
   tarifs: {
-    jour: { 
-      type: Number, 
-      required: true 
-    },
-    semaine: { 
-      type: Number, 
-      required: true 
-    },
-    mois: { 
-      type: Number,
-      required: true 
-    }
+    type: Number, 
+    required: true
   },
   politiqueCarburant: { 
     type: String,
@@ -66,10 +56,10 @@ const carsSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Reservation' 
   }],
-  description: [{
+  description: {
     type: String,
     required: true
-  }]
+  }
   //va etre deplacé dans les reservations seuls les personnes ayant deja eu acces à la voiture peut donner leurs avis sur cette reservation.
   /*avis: [{
     contenu: { 

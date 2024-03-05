@@ -22,8 +22,8 @@ const userSchema = new mongoose.Schema({
         default: './uploads/profil/default.png' },
     role: { 
         type: String,
-        enum: ['user', 'business', 'admin'],
-        default: 'user',
+        enum: ['client', 'business', 'admin'],
+        default: 'client',
         required: true },
     certification: { 
         type: Boolean,

@@ -52,13 +52,19 @@ exports.addCar = (req, res) => {
 
 
 exports.getAllCars = (req, res) => {
-    Car.find().populate('proprietaire')
+    Car.find().populate({
+      path: 'proprietaire',
+      select: '-password'
+  })
         .then(cars => res.status(200).json(cars))
         .catch(err => res.status(500).json({ message: err.message }));
 };
 
 exports.getCarById = (req, res) => {
-    Car.findById(req.params.id).populate('proprietaire')
+    Car.findById(req.params.id).populate({
+      path: 'proprietaire',
+      select: '-password'
+  })
         .then(car => {
         if (!car) return res.status(404).json({ message: 'Car not found' });
         res.status(200).json(car);
