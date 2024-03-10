@@ -37,7 +37,7 @@ const carsSchema = new mongoose.Schema({
   politiqueCarburant: { 
     type: String,
     enum: ['Plein-à-plein', 'Plein-à-vide', 'Plein-à-plein partiel', 'Prépaiement partiel', 'Autres'], 
-    required: true 
+
   },
   lieuPriseEnCharge: { 
     type: String, 
@@ -45,7 +45,6 @@ const carsSchema = new mongoose.Schema({
   },
   lieuRestitution: { 
     type: String, 
-    required: true 
   },
   proprietaire: { 
     type: mongoose.Schema.Types.ObjectId,

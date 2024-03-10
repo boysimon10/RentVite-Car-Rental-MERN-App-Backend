@@ -22,8 +22,8 @@ exports.addCar = (req, res) => {
         lieuRestitution,
         description
     } = req.body;
-    const photos = req.files.map(file => file.path);
-    
+    //const photos = req.files.map(file => file.path);
+    console.log("Received car data:", req.body);
     const newCar = new Car({
         marque,
         modele,
@@ -33,7 +33,7 @@ exports.addCar = (req, res) => {
         transmission,
         capaciteAccueil,
         options,
-        photos,
+        //photos,
         tarifs,
         politiqueCarburant,
         lieuPriseEnCharge,
@@ -41,12 +41,14 @@ exports.addCar = (req, res) => {
         proprietaire: userId,
         description
     });
+    console.log("New car object:", newCar);
     newCar.save()
         .then(() => {
             res.status(201).json({ message: 'Car added successfully' });
         })
         .catch((err) => {
             res.status(500).json({ error: err.toString() });
+            console.error("Error adding car:", err);
         });
 };
 
