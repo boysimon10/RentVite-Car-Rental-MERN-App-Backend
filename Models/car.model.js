@@ -51,10 +51,6 @@ const carsSchema = new mongoose.Schema({
     ref: 'User', 
     required: true 
   },
-  reservations: [{ 
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: 'Reservation' 
-  }],
   description: {
     type: String,
     required: true
