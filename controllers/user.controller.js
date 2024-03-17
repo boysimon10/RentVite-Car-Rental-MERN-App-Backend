@@ -56,7 +56,7 @@ exports.updateProfilePicture = (req, res) => {
 
     User.findByIdAndUpdate(
         req.params.id,
-        { $set: { profilePicture: req.file.path } },
+        { $set: { profilePicture: `./uploads/profil/${req.file.filename}` } },
         { new: true, useFindAndModify: false }
     )
     .then(user => {
