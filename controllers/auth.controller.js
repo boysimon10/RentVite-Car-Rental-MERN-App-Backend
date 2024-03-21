@@ -25,7 +25,7 @@ exports.signUp = (req, res) => {
             expiresIn: process.env.JWT_EXPIRE
         });
         //res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'None' });
-        localStorage.setItem('token', token);
+        //localStorage.setItem('token', token); ce bail doit etre uniquement dans le frontend
         res.status(200).json({ token });
     }).catch((err) => {
         if (!errorResponse) {
@@ -58,7 +58,7 @@ exports.signIn = async (req, res) => {
         });
 
         //res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'None' });
-        localStorage.setItem('token', token);
+        //localStorage.setItem('token', token);
         res.status(200).json({ token });
     } catch (err) {
         console.error('Erreur lors de la connexion :', err);
@@ -66,7 +66,8 @@ exports.signIn = async (req, res) => {
     }
 };
 
-exports.logOut = (req, res) => {
-    res.clearCookie('token');
+//le logout est géré dans le frontend maintenant
+/*exports.logOut = (req, res) => {
+    localStorage.removeItem('token');
     res.status(200).json({ message: 'Déconnexion réussie' });
-};
+};*/
