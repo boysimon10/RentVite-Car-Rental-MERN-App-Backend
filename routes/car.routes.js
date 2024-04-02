@@ -9,8 +9,8 @@ const uploadcar = require('../middleware/carUpload.middleware');
 router.post("/addcar",authMiddleware , carController.addCar);
 router.get('/', carController.getAllCars);
 router.get('/:id', carController.getCarById);
-router.put('/:id', carController.updateCar);
-router.delete('/:id', carController.deleteCar);
+router.put('/:id', authMiddleware,  carController.updateCar);
+router.delete('/:id',authMiddleware, carController.deleteCar);
 
 // Routes pour les commentaires sur les voitures
 /*router.post('/:id/comment',authMiddleware, carController.commentCar);

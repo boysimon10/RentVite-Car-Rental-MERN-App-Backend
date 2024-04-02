@@ -12,7 +12,6 @@ router.put("/:id/confirm", authMiddleware, bookingController.confirmBooking);
 
 
 
-
 // GET /booking/:id - Récupérer les détails d'une réservation spécifique
 // PUT /booking/:id/confirm - Confirmer une réservation spécifique (authentification requise)
 // PUT /booking/:id/cancel - Annuler une réservation spécifique (authentification requise)
